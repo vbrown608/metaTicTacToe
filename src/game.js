@@ -79,6 +79,7 @@ $(document).ready(function() {
 		  path += '&' + opt_param2;
 		}
 		var xhr = new XMLHttpRequest();
+		console.log('Sending post request')
 		xhr.open('POST', path, true);
 		xhr.send();
 	};
