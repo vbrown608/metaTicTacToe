@@ -2,11 +2,99 @@ body {
   font-family: 'Helvetica';
 }
 
+#wrapper {
+	width: 800px;
+	float: center;
+	/* TOP RIGHT BOTTOM LEFT */
+	margin: 0 auto 0 auto;
+	position: relative;
+}
+
+header {
+	float: left;
+	width: 200px;
+	height: 100px;
+	background-color:purple;
+}
+
+nav {
+	float: left;
+	width: 200px;
+	height: 400px;
+	background-color:pink;
+}
+article {
+	float: left;
+	width: 500px;
+	margin: 0 0 0 20px;
+	background-color:green;
+}
+article section {
+	float: left;
+	width: 480px;
+	margin: 0 0 10px 0;
+	padding: 0 10px 0 10px;
+	background-color:red;
+}
+
+p {
+	line-height: 14pt;
+	
+}
+
+.button {
+  background-color: #d7e5f5;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d7e5f5), color-stop(100%, #cbe0f5));
+  background-image: -webkit-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: -moz-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: -ms-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: -o-linear-gradient(top, #d7e5f5, #cbe0f5);
+  background-image: linear-gradient(top, #d7e5f5, #cbe0f5);
+  border-top: 1px solid #abbbcc;
+  border-left: 1px solid #a7b6c7;
+  border-bottom: 1px solid #a1afbf;
+  border-right: 1px solid #a7b6c7;
+  border-radius: 12px;
+  -webkit-box-shadow: inset 0 1px 0 0 white;
+  box-shadow: inset 0 1px 0 0 white;
+  color: #1a3e66;
+  font: normal 12px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  padding: 6px 0 7px 0;
+  text-align: center;
+  text-shadow: 0 1px 1px #fff;
+  width: 150px; }
+  
+ .button:hover {
+   background-color: #ccd9e8;
+   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ccd9e8), color-stop(100%, #c1d4e8));
+   background-image: -webkit-linear-gradient(top, #ccd9e8, #c1d4e8);
+   background-image: -moz-linear-gradient(top, #ccd9e8, #c1d4e8);
+   background-image: -ms-linear-gradient(top, #ccd9e8, #c1d4e8);
+   background-image: -o-linear-gradient(top, #ccd9e8, #c1d4e8);
+   background-image: linear-gradient(top, #ccd9e8, #c1d4e8);
+   border-top: 1px solid #a1afbf;
+   border-left: 1px solid #9caaba;
+   border-bottom: 1px solid #96a3b3;
+   border-right: 1px solid #9caaba;
+   -webkit-box-shadow: inset 0 1px 0 0 #f2f2f2;
+   box-shadow: inset 0 1px 0 0 #f2f2f2;
+   color: #163659;
+   cursor: pointer; }
+   
+ button:active {
+   border: 1px solid #8c98a7;
+   -webkit-box-shadow: inset 0 0 4px 2px #abbccf, 0 0 1px 0 #eeeeee;
+   box-shadow: inset 0 0 4px 2px #abbccf, 0 0 1px 0 #eeeeee; }
+
+a { color: inherit ;
+	text-decoration: none;}
+
 #display-area {
   text-align: center;
 }
 
 #this-game {
+  font-family: 'Anaheim', sans-serif;
   font-size: 9pt;
 }
 

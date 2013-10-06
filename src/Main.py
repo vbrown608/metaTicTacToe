@@ -1,19 +1,7 @@
-'''
-Created on Sep 27, 2013
+"""
+Web based Meta Tic-Tac-Toe game for Google App Engine
 
 @author: vbrown
-'''
-
-#!/usr/bin/python2.4
-#
-# Copyright 2010 Google Inc. All Rights Reserved.
-
-# pylint: disable-msg=C6310
-
-"""Channel Tic Tac Toe
-
-This module demonstrates the App Engine Channel API by implementing a
-simple tic-tac-toe game.
 """
 
 import logging
@@ -21,7 +9,6 @@ import os
 import re
 from django.utils import simplejson
 from google.appengine.api import channel
-from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -34,7 +21,13 @@ from gaesessions import get_current_session
 # Board_num: the index of a miniboard (0-8)
 # Metaboard: a list of nine miniboards
 
+# TODO:
+# Convert CreateGame from get to post
+# Encapsulate some user identification stuff
+# Add comments to the whole thing
+
 class User(db.Model):
+    """Represent a user of the application. Equivalent to a browser session."""
     google_user = db.BooleanProperty()
     
     def __eq__(self, other):
@@ -45,7 +38,7 @@ class User(db.Model):
             
 
 class Game(db.Model):
-    """All the data we store for a game"""
+    """Represent a single game of meta-tic-tac-toe"""
     userX = db.ReferenceProperty(User, collection_name='userX')
     userO = db.ReferenceProperty(User, collection_name='userO')
     moveX = db.BooleanProperty()
@@ -73,12 +66,14 @@ class Wins():
 
 
 class GameUpdater():
+    """Manage all game logic, package game state, and send it to the client"""
     game = None
     
     def __init__(self, game):
         self.game = game
     
     def get_game_message(self):
+        """Return a JSON object with the game state"""
         gameUpdate = {
             'metaboard': self.game.metaboard,
             'userX': str(self.game.userX.key().id()),
@@ -90,6 +85,7 @@ class GameUpdater():
         return simplejson.dumps(gameUpdate)
     
     def send_update(self):
+        """Send the game state, via the channel, to userX and userO"""
         message = self.get_game_message() # Package the game state as a JSON object
         channel.send_message(str(self.game.userX.key().id()) + str(self.game.key()), message)
         if self.game.userO:
@@ -111,12 +107,13 @@ class GameUpdater():
     def is_legal_move(self, board_num, cell, user):
         if board_num >= 0 and user == self.game.userX or user == self.game.userO:
             if self.game.moveX == (user == self.game.userX): 
-                if self.game.metaboard[board_num][cell] == ' ' and self.game.all_mini_wins[board_num] == ' ':
+                if self.game.metaboard[board_num][cell] == ' ':
                     if self.game.metaboard == ['         ']*9 or self.game.last_cell == board_num:
                         return True
         return False
     
     def make_move(self, board_num, cell, user):
+        """Get a move. If it's legal update the game state, save it, and send it to the client."""
         #user = db.get(user)
         if self.is_legal_move(board_num, cell, user):
             board = list(self.game.metaboard[board_num])
@@ -127,7 +124,7 @@ class GameUpdater():
             self.game.metaboard[board_num] = "".join(board)
             
             # Check for a win on the miniboard and the metaboard:
-            if self.check_win(board): 
+            if self.game.all_mini_wins[board_num] == ' ' and self.check_win(board): 
                 self.game.all_mini_wins[board_num] = currentPlayer 
                 if self.check_win(self.game.all_mini_wins):
                     self.game.winner = str(user)
@@ -152,6 +149,7 @@ class GameFromRequest():
 
 
 class MovePage(webapp.RequestHandler):
+    """Handle a game move from the client"""
     def post(self):
         game = GameFromRequest(self.request).get_game()
         session = get_current_session()
@@ -164,14 +162,17 @@ class MovePage(webapp.RequestHandler):
     
     
 class OpenedPage(webapp.RequestHandler):
+    """A game page has been opened and the channel has been established. Send the game state."""
     def post(self):
         game = GameFromRequest(self.request).get_game()
         GameUpdater(game).send_update()
 
 class NewGame(webapp.RequestHandler):
+    """Create a new game and then redirect the client to that game."""
     def get(self):
         session = get_current_session()
         user_key = session.get('user_key')
+        logging.info(user_key)
         #game_key = str(user_key) # Game key gets created here - same user X's user id.
         game = Game(#key_name = game_key,
                     userX = db.get(db.Key(user_key)),
@@ -193,6 +194,7 @@ class GamePage(webapp.RequestHandler):
         if user_key: 
             user = db.get(db.Key(user_key))
         else:
+            # If the browser session is new, create a new user.
             user = User()
             user.put()
             session['user_key'] = str(user.key())
@@ -204,7 +206,8 @@ class GamePage(webapp.RequestHandler):
             game.userO = user
             game.put()
 
-        game_link = 'http://localhost:8080/game?g=' + game_key
+        #game_link = 'http://localhost:8080/game?g=' + game_key
+        game_link = self.request.url
 
         if game:
             token = channel.create_channel(str(user.key().id()) + game_key)
