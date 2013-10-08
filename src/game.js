@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var state = {
-		game_key: '{{ game_key }}',
+		game_id: '{{ game_id}}',
 		me: '{{ me }}'
 	};
 
@@ -71,7 +71,7 @@ $(document).ready(function() {
 	}
 
 	sendMessage = function(path, opt_param, opt_param2) {
-		path += '?g=' + state.game_key;
+		path += '?g=' + state.game_id;
 		if (opt_param) {
 		  path += '&' + opt_param;
 		}

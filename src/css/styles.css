@@ -1,7 +1,7 @@
-/* Page Elements */
+/* PAGE LAYOUT ELEMENTS */
 body {
-  font-family: 'Helvetica';
   background: #EAEAEA;
+  font: normal 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 #wrapper {
@@ -32,7 +32,7 @@ article section {
 	float: left;
 	width: 480px;
 	margin: 0 0 10px 0;
-	padding: 0 10px 0 10px;
+	padding: 10px;
 	background-color: #FFFFFF; }
 
 .button {
@@ -79,17 +79,16 @@ article section {
    border: 1px solid #9bcb4d;
    -webkit-box-shadow: inset 0 0 4px 2px #9bcb4d, 0 0 1px 0 #eeeeee;
    box-shadow: inset 0 0 4px 2px #9bcb4d, 0 0 1px 0 #eeeeee; }*/
-
-a { color: inherit ;
-	text-decoration: none;}
 	
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
 	font: normal 18px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
+a { color: inherit ;
+	text-decoration: none;}
+
 p {
-	font: normal 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 	line-height: 14pt;
 }
 
@@ -99,62 +98,50 @@ p {
 	float: left;
 }
 
-/* Game elements */
-#display-area {
+/* GAME INFO ELEMENTS */
+section#game-area {
   text-align: center;
 }
 
+div.info {
+  display: none;
+}
+
 #this-game {
-  font-family: 'Anaheim', sans-serif;
+  float: left;
   font-size: 9pt;
 }
 
 #winner {
+  float: left;
 }
 
+/* GAME BOARD ELEMENTS */
 #metaboard {
-  width: 300px;
-  height: 300px;
+  width: 288px;
+  height: 288px;
   margin: 20px auto;
 }
 
-.board {
+div.board {
   float: left;
-  width: 33%;
-  height: 33%;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-td {
-  width: 50px;
-  height: 50px;
-  font-family: "Helvetica";
-  font-size: 16pt;
-  text-align: center;
-  vertical-align: middle;
-  margin:0px;
-  padding: 0px;
+  width: 80px;
+  height: 80px;
+  margin: 8px;
 }
 
 div.cell {
   float: left;
-  width: 30%;
-  height: 30%;
+  width: 20px;
+  height: 20px;
   border: none;
   margin: 0px;
-  padding: 0px;
+  padding: 2px;
+  font-size: 12pt;
 }
 
 div.hover {
   background: lightblue;
-}
-
-div.mark {
-  position: absolute;
-  top: 15px;          
 }
 
 div.X {

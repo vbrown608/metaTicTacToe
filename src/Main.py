@@ -139,14 +139,27 @@ class GameFromRequest():
     game = None;
     
     def __init__(self, request):
-        #user = users.get_current_user() # THIS IS THE BROKEN PART.
-        game_key = request.get('g') # The client passes the game key back in order to open up the channel
-        if game_key:
-            self.game = db.get(db.Key(game_key)) #Game.get_by_key_name(game_key)
+        game_id = request.get('g') # The client passes the game key back in order to open up the channel
+        if game_id:
+            self.game = Game.get_by_id(int(game_id))
     
     def get_game(self):
         return self.game
-
+    
+class UserFromSession():
+    user = None;
+    
+    def __init__(self, session):
+        user_key = session.get('user_key')
+        if user_key:
+            self.user = db.get(db.Key(user_key))
+        else:
+            self.user = User();
+            self.user.put()
+            session['user_key'] = str(self.user.key())
+            
+    def get_user(self):
+        return self.user
 
 class MovePage(webapp.RequestHandler):
     """Handle a game move from the client"""
@@ -162,7 +175,8 @@ class MovePage(webapp.RequestHandler):
     
     
 class OpenedPage(webapp.RequestHandler):
-    """A game page has been opened and the channel has been established. Send the game state."""
+    """A game page has been opened and the channel has been established. 
+    The client sends a post with the game id and the server send back the the game state."""
     def post(self):
         game = GameFromRequest(self.request).get_game()
         GameUpdater(game).send_update()
@@ -170,17 +184,13 @@ class OpenedPage(webapp.RequestHandler):
 class NewGame(webapp.RequestHandler):
     """Create a new game and then redirect the client to that game."""
     def get(self):
-        session = get_current_session()
-        user_key = session.get('user_key')
-        logging.info(user_key)
-        #game_key = str(user_key) # Game key gets created here - same user X's user id.
-        game = Game(#key_name = game_key,
-                    userX = db.get(db.Key(user_key)),
+        user = UserFromSession(get_current_session()).get_user()
+        game = Game(userX = user,
                     moveX = True,
                     all_mini_wins = [' ']*9,
                     metaboard = ['         ']*9)
         game.put()
-        self.redirect('/game?g=' + str(game.key()))
+        self.redirect('/game?g=' + str(game.key().id()))
 
 class GamePage(webapp.RequestHandler):
     """Renders a page representing a single game"""
@@ -188,34 +198,20 @@ class GamePage(webapp.RequestHandler):
     def get(self):
         """Renders the main page. When this page is shown, we create a new
         channel to push asynchronous updates to the client."""
-        session = get_current_session()
-        user_key = session.get('user_key')
         
-        if user_key: 
-            user = db.get(db.Key(user_key))
-        else:
-            # If the browser session is new, create a new user.
-            user = User()
-            user.put()
-            session['user_key'] = str(user.key())
-            user_key = str(user.key())
-
-        game_key = self.request.get('g')
-        game = db.get(db.Key(game_key))
+        user = UserFromSession(get_current_session()).get_user()
+        game = GameFromRequest(self.request).get_game()
+        
         if user != game.userX and not game.userO:
             game.userO = user
             game.put()
 
-        #game_link = 'http://localhost:8080/game?g=' + game_key
-        game_link = self.request.url
-
         if game:
-            token = channel.create_channel(str(user.key().id()) + game_key)
+            token = channel.create_channel(str(user.key().id()) + str(game.key()))
             template_values = {'token': token,
                                'me': user.key().id(),
-                               'nickname': user.key().id(),
-                               'game_key': game_key,
-                               'game_link': game_link,
+                               'game_id': str(game.key().id()),
+                               'game_link': self.request.url,
                                'initial_message': GameUpdater(game).get_game_message()
                               }
             path = os.path.join(os.path.dirname(__file__), 'game.html')
