@@ -56,7 +56,8 @@ article section {
   text-align: center;
   text-shadow: 0 1px 1px #fff;
   width: 150px; 
-  margin: 12px auto 12px; }
+  margin: 12px auto 12px; 
+  display: block; }
   
  .button:hover {
    background-color: #b7ea6c;/*

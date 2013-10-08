@@ -22,8 +22,6 @@ from gaesessions import get_current_session
 # Metaboard: a list of nine miniboards
 
 # TODO:
-# Convert CreateGame from get to post
-# Encapsulate some user identification stuff
 # Add comments to the whole thing
 
 class User(db.Model):
@@ -114,7 +112,6 @@ class GameUpdater():
     
     def make_move(self, board_num, cell, user):
         """Get a move. If it's legal update the game state, save it, and send it to the client."""
-        #user = db.get(user)
         if self.is_legal_move(board_num, cell, user):
             board = list(self.game.metaboard[board_num])
         
@@ -165,14 +162,11 @@ class MovePage(webapp.RequestHandler):
     """Handle a game move from the client"""
     def post(self):
         game = GameFromRequest(self.request).get_game()
-        session = get_current_session()
-        user_key = session.get('user_key')
-        user = db.get(db.Key(user_key))
+        user = UserFromSession(get_current_session()).get_user()
         if game and user:
             board_num = int(self.request.get('i'))
             cell = int(self.request.get('j'))
             GameUpdater(game).make_move(board_num, cell, user)
-    
     
 class OpenedPage(webapp.RequestHandler):
     """A game page has been opened and the channel has been established. 
@@ -183,7 +177,7 @@ class OpenedPage(webapp.RequestHandler):
 
 class NewGame(webapp.RequestHandler):
     """Create a new game and then redirect the client to that game."""
-    def get(self):
+    def post(self):
         user = UserFromSession(get_current_session()).get_user()
         game = Game(userX = user,
                     moveX = True,
@@ -219,7 +213,6 @@ class GamePage(webapp.RequestHandler):
             self.response.out.write(template.render(path, template_values))
         else:
             self.response.out.write('No such game')
-
             
 class MainPage(webapp.RequestHandler):
     """ Render the main landing page where users can view their current games or create a new one."""
