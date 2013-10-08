@@ -1,9 +1,11 @@
 $(document).ready(function() {
 	var state = {
+		// Info needed to open the channel.
 		game_id: '{{ game_id}}',
 		me: '{{ me }}'
 	};
 
+	// Based on the game state, put Xs and Os on miniboards and metaboards.
 	updateGame = function() {
 		$(".board").each( function(i) {
 			board = state.metaboard[i];
@@ -14,24 +16,8 @@ $(document).ready(function() {
 				$(this).addClass(state.all_mini_wins[i]);
 			}
 		});
-	
-		/*for (i = 0; i < 9; i++) {
-		  var square = document.getElementById(i);
-		  square.innerHTML = state.board[i];
-		  if (state.winner != '' && state.winningBoard != '') {
-			if (state.winningBoard[i] == state.board[i]) {
-			  if (state.winner == state.me) {
-				square.style.background = "green";
-			  } else {
-				square.style.background = "red";
-			  }
-			} else {
-			  square.style.background = "white";
-			}
-		  }
-		}
-		*/
 		
+		// Hide or display game info.
 		var display = {
 		  'other-player': 'none',
 		  'your-move': 'none',
@@ -56,6 +42,7 @@ $(document).ready(function() {
 		  display['their-move'] = 'block';
 		}
 		
+		// TODO: use jQuery
 		for (var label in display) {
 		  document.getElementById(label).style.display = display[label];
 		}

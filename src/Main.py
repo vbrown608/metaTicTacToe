@@ -21,9 +21,6 @@ from gaesessions import get_current_session
 # Board_num: the index of a miniboard (0-8)
 # Metaboard: a list of nine miniboards
 
-# TODO:
-# Add comments to the whole thing
-
 class User(db.Model):
     """Represent a user of the application. Equivalent to a browser session."""
     google_user = db.BooleanProperty()
@@ -90,6 +87,7 @@ class GameUpdater():
             channel.send_message(str(self.game.userO.key().id()) + str(self.game.key()), message)
     
     def check_win(self, board):
+        """Check if a board contains three of the same piece in a row. Works on mini or metaboard"""
         board = "".join(board)
         if self.game.moveX:
             # X just moved, check for X wins
@@ -103,10 +101,13 @@ class GameUpdater():
         return False
         
     def is_legal_move(self, board_num, cell, user):
+        """Return true iff the move is legal for the given user"""
         if board_num >= 0 and user == self.game.userX or user == self.game.userO:
             if self.game.moveX == (user == self.game.userX): 
                 if self.game.metaboard[board_num][cell] == ' ':
-                    if self.game.metaboard == ['         ']*9 or self.game.last_cell == board_num:
+                    if (self.game.metaboard == ['         ']*9 # First move of the game
+                        or self.game.metaboard[self.game.last_cell].replace(' ', '') == '' # Forced to move in already full board
+                        or self.game.last_cell == board_num): # Normal move: board determined by last cell
                         return True
         return False
     
@@ -124,7 +125,7 @@ class GameUpdater():
             if self.game.all_mini_wins[board_num] == ' ' and self.check_win(board): 
                 self.game.all_mini_wins[board_num] = currentPlayer 
                 if self.check_win(self.game.all_mini_wins):
-                    self.game.winner = str(user)
+                    self.game.winner = str(user.key().id())
             
             self.game.last_cell = cell
             self.game.moveX = not self.game.moveX
@@ -133,6 +134,7 @@ class GameUpdater():
             return
 
 class GameFromRequest():
+    """Take a request with variable g (the game key) and return the game entity from the datastore"""
     game = None;
     
     def __init__(self, request):
@@ -144,6 +146,8 @@ class GameFromRequest():
         return self.game
     
 class UserFromSession():
+    """Take the session, get the user key, and return the user object.
+    If no user if set yet, create a new user, store in datastore, set cookie, and return that user"""
     user = None;
     
     def __init__(self, session):
@@ -151,6 +155,7 @@ class UserFromSession():
         if user_key:
             self.user = db.get(db.Key(user_key))
         else:
+            # No user key stored - make a new one
             self.user = User();
             self.user.put()
             session['user_key'] = str(self.user.key())
@@ -187,7 +192,7 @@ class NewGame(webapp.RequestHandler):
         self.redirect('/game?g=' + str(game.key().id()))
 
 class GamePage(webapp.RequestHandler):
-    """Renders a page representing a single game"""
+    """Render a page representing a single game"""
     
     def get(self):
         """Renders the main page. When this page is shown, we create a new
@@ -215,7 +220,7 @@ class GamePage(webapp.RequestHandler):
             self.response.out.write('No such game')
             
 class MainPage(webapp.RequestHandler):
-    """ Render the main landing page where users can view their current games or create a new one."""
+    """ Render the main landing page where users can view instructions and create a new one."""
     
     def get(self):
         session = get_current_session()
@@ -235,7 +240,6 @@ application = webapp.WSGIApplication([
     ('/game', GamePage),
     ('/opened', OpenedPage),
     ('/move', MovePage)], debug=True)
-
 
 def main():
     run_wsgi_app(application)
