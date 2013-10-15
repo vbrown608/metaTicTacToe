@@ -125,11 +125,27 @@ div.info {
 }
 
 div.board {
+  position: relative;
   float: left;
   width: 80px;
   height: 80px;
   margin: 8px;
 }
+
+.board .mark {
+  color: ##3ACFC3; /* Fallback for older browsers */
+  color: rgba(3, 172, 252, 0.5);
+  font-size: 72pt;
+  font-weight: bold;
+  position: absolute; }
+
+.board .X {
+  top: -14px;
+  left: 8px; }
+
+.board .O {
+  top: -14px;
+  left: 0px; }
 
 div.cell {
   float: left;
@@ -141,16 +157,12 @@ div.cell {
   font-size: 12pt;
 }
 
-div.hover {
-  background: lightblue;
+div.cell.playable {
+  background-color: #F0FE9A;
 }
 
-div.X {
-  background: yellow;
-}
-
-div.O {
-  background: purple;
+div.cell.hover {
+  background: #3ACFC3;
 }
 
 div.l {

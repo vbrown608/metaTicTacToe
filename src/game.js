@@ -1,19 +1,22 @@
 $(document).ready(function() {
 	var state = {
-		// Info needed to open the channel.
 		game_id: '{{ game_id}}',
 		me: '{{ me }}'
 	};
 
-	// Based on the game state, put Xs and Os on miniboards and metaboards.
+	// Update the metaboard.
 	updateGame = function() {
+		
 		$(".board").each( function(i) {
 			board = state.metaboard[i];
+			$(this).find(".mark").addClass(state.all_mini_wins[i]).html(state.all_mini_wins[i]) // Put big Xs and Os on miniboards.
 			$(this).find(".cell").each( function(j) {
-				$(this).html(board[j]);
+				$(this).html(board[j]); // Put little Xs and Os in cells.
 			});
-			if (state.all_mini_wins[i] != ' ') {
-				$(this).addClass(state.all_mini_wins[i]);
+			if (isLegalBoard(i) && isMyMove()) { 
+				$(this).children().addClass('playable'); // Highlight the miniboard(s) I can play in.
+			} else {
+				$(this).children().removeClass('playable');
 			}
 		});
 		
@@ -56,7 +59,20 @@ $(document).ready(function() {
 	myPiece = function() {
 		return state.userX == state.me ? 'X' : 'O';
 	}
+	
+	// Check if miniboard is playable.
+	isLegalBoard = function(board) {
+		console.log(state.last_cell);
+		return state.last_cell == board || state.last_cell == -1;
+	}
+	
+	// Check if cell in miniboard is playable.
+	isLegalMove = function(board, cell) {
+		return isMyMove() && isLegalBoard(board) && state.metaboard[board][cell] == ' ';
+	}
 
+	// Send a message to the client with game id
+	// Includes two optional params to encode the move: miniboard and cell
 	sendMessage = function(path, opt_param, opt_param2) {
 		path += '?g=' + state.game_id;
 		if (opt_param) {
@@ -74,8 +90,19 @@ $(document).ready(function() {
 	moveInSquare = function() {
 		$(".board").each( function(i) {
 			$(this).find(".cell").each( function(j) {
+				// Highlight playable squares on hover.
+				$(this).hover( function() {
+						if (isLegalMove(i, j)) {
+							$(this).addClass('hover'); 
+						}
+					}, 
+					function() {
+						$(this).removeClass("hover");
+					}
+				);
+				// Send a message with the move on lick.
 				$(this).click( function() {
-					if (isMyMove() && state.metaboard[i][j] == ' ') {
+					if (isLegalMove(i, j)) {
 						sendMessage('/move', 'i=' + i, 'j=' + j);
 					}
 				});
@@ -83,11 +110,24 @@ $(document).ready(function() {
 		});
 	}
 	
+	// Highlight playable cells on mouseover.
+	highlightSquare = function() {
+		$(".board").each( function(i) {
+			$(this).find(".cell").each( function(j) {
+				$(this).hover( function() {
+					if (isLegalMove(i, j)) {
+						$(this).addClass('hover');
+					}
+				});
+			});
+		});
+	}
 	
+	/*
 	highlightSquare = function() {
 		$(".cell").hover(
 			function() {
-				if (state.winner == "" && isMyMove()) {
+				if (isMyMove()) {
 					$(this).addClass("hover");
 				}
 			}, 
@@ -96,6 +136,7 @@ $(document).ready(function() {
 			}
 		);
 	}
+	*/
   
 	onOpened = function() {
 		sendMessage('/opened');
@@ -108,6 +149,7 @@ $(document).ready(function() {
 		state.userX = newState.userX || state.userX;
 		state.userO = newState.userO || state.userO;
 		state.moveX = newState.moveX;
+		state.last_cell = newState.last_cell;
 		state.winner = newState.winner || "";
 		state.winningBoard = newState.winningBoard || "";
 		updateGame();
@@ -129,9 +171,9 @@ $(document).ready(function() {
   
 	initialize = function() {
 		openChannel();
-		highlightSquare();
+		//highlightSquare();
 		moveInSquare();
-		var i;
+		//var i;
 		onMessage({data: '{{ initial_message }}'});
 	}      
 

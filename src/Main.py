@@ -73,6 +73,7 @@ class GameUpdater():
             'metaboard': self.game.metaboard,
             'userX': str(self.game.userX.key().id()),
             'userO': '' if not self.game.userO else str(self.game.userO.key().id()),
+            'last_cell': self.game.last_cell,
             'moveX': self.game.moveX,
             'all_mini_wins': self.game.all_mini_wins,
             'winner': self.game.winner,
@@ -105,8 +106,7 @@ class GameUpdater():
         if board_num >= 0 and user == self.game.userX or user == self.game.userO:
             if self.game.moveX == (user == self.game.userX): 
                 if self.game.metaboard[board_num][cell] == ' ':
-                    if (self.game.metaboard == ['         ']*9 # First move of the game
-                        or self.game.metaboard[self.game.last_cell].replace(' ', '') == '' # Forced to move in already full board
+                    if (self.game.last_cell == -1 # Forced to move in already full board
                         or self.game.last_cell == board_num): # Normal move: board determined by last cell
                         return True
         return False
@@ -127,7 +127,11 @@ class GameUpdater():
                 if self.check_win(self.game.all_mini_wins):
                     self.game.winner = str(user.key().id())
             
-            self.game.last_cell = cell
+            if ' ' in self.game.metaboard[cell]:
+                logging.info("**SETTING LAST CELL TO " + str(cell))
+                self.game.last_cell = cell
+            else:
+                self.game.last_cell = -1 # A special case where the miniboard to be played in is full
             self.game.moveX = not self.game.moveX
             self.game.put() # Save the game state
             self.send_update() # Send it to the client
@@ -186,6 +190,7 @@ class NewGame(webapp.RequestHandler):
         user = UserFromSession(get_current_session()).get_user()
         game = Game(userX = user,
                     moveX = True,
+                    last_cell = -1,
                     all_mini_wins = [' ']*9,
                     metaboard = ['         ']*9)
         game.put()
