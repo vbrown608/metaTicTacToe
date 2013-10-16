@@ -128,7 +128,6 @@ class GameUpdater():
                     self.game.winner = str(user.key().id())
             
             if ' ' in self.game.metaboard[cell]:
-                logging.info("**SETTING LAST CELL TO " + str(cell))
                 self.game.last_cell = cell
             else:
                 self.game.last_cell = -1 # A special case where the miniboard to be played in is full

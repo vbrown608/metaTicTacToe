@@ -2,34 +2,773 @@
 <html lang = "en">
 <head>
 	<title = "Meta Tic Tac Toe"></title>
-	<link href='http://fonts.googleapis.com/css?family=Parisienne|Anaheim' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Parisienne|Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	<meta charset = "utf-8" />
 </head>
 <body>
 	<div id = wrapper>
 		<nav>
-			<header><h1><div class=script>Meta</div> Tic Tac Toe</h1></header>
+			<header><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></header>
 			<form action="/new" method="post">
-				<input class=button type="submit" value="New game"/>
+				<input class='button' type="submit" value="New game"/>
 			</form>
-			<div class = button><a href = "/about">About</a></div>
 		</nav>
 		<article>
 			<section>
-				A heading!<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+				<div class='small example'>
+					<p>This is a <b>miniboard</b>:</p>
+					<div class='board_wrapper'>
+						  <div class='board'>
+						  	<div class='mark'></div>
+							<div class='t l cell'></div>
+							<div class='t c cell'></div>
+							<div class='t r cell'></div>
+							<div class='m l cell'></div>
+							<div class='m c cell'></div>
+							<div class='m r cell'></div>
+							<div class='b l cell'></div>
+							<div class='b c cell'></div>
+							<div class='b r cell'></div>
+						  </div>
+					</div>
+				</div>
+				
+			  	<div class='medium example'>
+			  		<p>Nine miniboards make a <b>metaboard</b>:</p>
+				  	<div id='metaboard'>
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+				  </div>
+				</div>
+				
+				<div class='medium example'>
+			  		<p>On the first turn, X can play anywhere on the metaboard.</p>
+				  	<div id='metaboard'>
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable hover'>X</div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+				  </div>
+				</div>
 			</section>
 			
 			<section>
-				A second heading :)<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+				<p>The cell where X plays on the miniboard determines where player O can play on the metaboard. </p>
+				<div class='example'>
+			  		<p>For example, if <b>X</b> plays in the <b>bottom left cell</b> of a miniboard...</p>
+				  	<div id='metaboard'>
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable hover'>X</div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+				  </div>
+				</div>
+				<div class='example'>
+			  		<p>...<b>O</b> must play in the <b>bottom left miniboard</b> on the metaboard.</p>
+				  	<div id='metaboard'>
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'>X</div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+				  </div>
+				</div>
+				<p>The same is true after O plays.</p>
+				<p><b>One special case: </b>If you're forced to play in a miniboard that's already full, you can play in any empty square on the metaboard.</p>
 			</section>
 			
+
 			<section>
-				<p>The third part of the instructions.</p>
-			</section>
-			
-			<section>
-				<p>A list of "my games"</p>
+				<div class='example'>
+			  		<p>Get <b>three cells</b> in a row to win a miniboard.</p>
+				  	<div id='metaboard'>
+					  <div class='board'>
+					  	<div class='mark X'>X</div>
+						<div class='t l cell'>X</div>
+						<div class='t c cell'>X</div>
+						<div class='t r cell'>X</div>
+						<div class='m l cell'></div>
+						<div class='m c cell'>O</div>
+						<div class='m r cell'></div>
+						<div class='b l cell'>X</div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+				  </div>
+				</div>
+				<div class='example'>
+			  		<p>Win <b>three miniboards</b> in a row to win the game.</p>
+				  	<div id='metaboard'>
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell playable'></div>
+						<div class='t c cell playable'></div>
+						<div class='t r cell playable'></div>
+						<div class='m l cell playable'></div>
+						<div class='m c cell playable'></div>
+						<div class='m r cell playable'></div>
+						<div class='b l cell playable'></div>
+						<div class='b c cell playable'></div>
+						<div class='b r cell playable'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+				  </div>
+				</div>
 			</section>
 		</article>
 	</div>

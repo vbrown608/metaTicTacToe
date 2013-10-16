@@ -5,35 +5,75 @@ body {
 }
 
 #wrapper {
-	width: 800px;
-	/* TOP RIGHT BOTTOM LEFT */
-	margin: 32px auto 0 auto;
+	width: 840px;
+	margin: 36px auto 0px auto;
 	position: relative;
 }
 
 header {
+	text-align: center;
 	margin: auto;
+	position: relative;
 	width: 200px;
-	height: 100px; }
+	height: 90px; }
+	
+header #meta {
+	font-family: Parisienne;
+	font-size: 44px;
+	font-weight: bold;
+	position: absolute;
+	top: 8px;
+	left: -10px;
+	color: #1a3e66;
+}
+
+header #tictactoe {
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	font-size: 28px;
+	position: absolute;
+	top: 15px;
+	left: 98px;
+}
 
 nav {
 	float: left;
-	width: 200px;
-	height: 400px;
-	background-color: #FFFFFF;
-	margin: auto; }
+	width: 185px;
+	height: 190px;
+	padding: 15px;
+	background-color: #FFFFFF; 
+	box-shadow: -5px 5px 2px #DBDBDB; }
 
 article {
 	float: left;
-	width: 500px;
-	margin: 0 0 0 20px; }
+	width: 600px;
+	margin: 0 0 36px 18px; }
 	
 article section {
 	float: left;
-	width: 480px;
-	margin: 0 0 10px 0;
-	padding: 10px;
-	background-color: #FFFFFF; }
+	width: 580px;
+	margin: 0 0 18px 0;
+	padding: 5px 15px 5px;
+	background-color: #FFFFFF; 
+	box-shadow: -5px 5px 2px #DBDBDB; }
+	
+div.example {
+	text-align: center;
+	float: left;
+	width: 50%;
+}
+
+div.example.small {
+	width: 20%;
+}
+
+div.board_wrapper {
+	margin: auto;
+	width: 63.3px;
+}
+
+div.example.medium {
+	width: 40%
+}
 
 .button {
   background-color: #C7F464; /* NEW COLOR: C7F464
@@ -52,10 +92,10 @@ article section {
   box-shadow: inset 0 1px 0 0 white;
   color: #1a3e66;
   font: normal 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-  padding: 6px 0 7px 0;
+  padding: 14px 0 15px 0;
   text-align: center;
   text-shadow: 0 1px 1px #fff;
-  width: 150px; 
+  width: 160px; 
   margin: 12px auto 12px; 
   display: block; }
   
@@ -83,7 +123,7 @@ article section {
 	
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-	font: normal 18px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+	font: bold 18px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
 a { color: inherit ;
@@ -91,6 +131,10 @@ a { color: inherit ;
 
 p {
 	line-height: 14pt;
+}
+
+.example p {
+	min-height: 36px;
 }
 
 .script {
@@ -121,15 +165,25 @@ div.info {
 #metaboard {
   width: 288px;
   height: 288px;
-  margin: 20px auto;
+  margin: 20px auto 20px;
 }
+
+.example #metaboard {
+  width: 192px;
+  height: 192px; 
+  margin: 14px auto 14px; }
 
 div.board {
   position: relative;
   float: left;
   width: 80px;
   height: 80px;
-  margin: 8px;
+  margin: 8px; }
+
+.example div.board {
+  width: 53px;
+  height: 53px;
+  margin: 5.3px;
 }
 
 .board .mark {
@@ -138,6 +192,10 @@ div.board {
   font-size: 72pt;
   font-weight: bold;
   position: absolute; }
+ 
+.example .board .mark {
+  font-size: 38pt;
+ }
 
 .board .X {
   top: -14px;
@@ -145,6 +203,14 @@ div.board {
 
 .board .O {
   top: -14px;
+  left: 0px; }
+  
+.example .board .X {
+  top: -6px;
+  left: 4px; }
+
+.example .board .O {
+  top: -7px;
   left: 0px; }
 
 div.cell {
@@ -157,12 +223,20 @@ div.cell {
   font-size: 12pt;
 }
 
+.example div.cell {
+  width: 13px;
+  height: 13px;
+  padding: 0px;
+  font-size: 9pt;
+  font-weight: bold;
+}
+
 div.cell.playable {
   background-color: #F0FE9A;
 }
 
 div.cell.hover {
-  background: #3ACFC3;
+  background: #b7ea6c;
 }
 
 div.l {

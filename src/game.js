@@ -62,7 +62,6 @@ $(document).ready(function() {
 	
 	// Check if miniboard is playable.
 	isLegalBoard = function(board) {
-		console.log(state.last_cell);
 		return state.last_cell == board || state.last_cell == -1;
 	}
 	
@@ -82,7 +81,6 @@ $(document).ready(function() {
 		  path += '&' + opt_param2;
 		}
 		var xhr = new XMLHttpRequest();
-		console.log('Sending post request')
 		xhr.open('POST', path, true);
 		xhr.send();
 	};
