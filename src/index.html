@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
-	<title = "Meta Tic Tac Toe"></title>
+	<title>Meta Tic Tac Toe</title>
 	<link href='http://fonts.googleapis.com/css?family=Parisienne|Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	<meta charset = "utf-8" />
@@ -9,10 +9,11 @@
 <body>
 	<div id = wrapper>
 		<nav>
-			<header><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></header>
+			<header><a href='/'><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></a></header>
 			<form action="/new" method="post">
 				<input class='button' type="submit" value="New game"/>
 			</form>
+			<a href='/about'><div class='button'>About</div></a>
 		</nav>
 		<article>
 			<section>
@@ -36,7 +37,7 @@
 				
 			  	<div class='medium example'>
 			  		<p>Nine miniboards make a <b>metaboard</b>:</p>
-				  	<div id='metaboard'>
+				  	<div class='metaboard'>
 					  <div class='board'>
 					  	<div class='mark'></div>
 						<div class='t l cell'></div>
@@ -158,7 +159,7 @@
 				
 				<div class='medium example'>
 			  		<p>On the first turn, X can play anywhere on the metaboard.</p>
-				  	<div id='metaboard'>
+				  	<div class='metaboard'>
 					  <div class='board'>
 					  	<div class='mark'></div>
 						<div class='t l cell playable'></div>
@@ -281,7 +282,7 @@
 				<p>The cell where X plays on the miniboard determines where player O can play on the metaboard. </p>
 				<div class='example'>
 			  		<p>For example, if <b>X</b> plays in the <b>bottom left cell</b> of a miniboard...</p>
-				  	<div id='metaboard'>
+				  	<div class='metaboard'>
 					  <div class='board'>
 					  	<div class='mark'></div>
 						<div class='t l cell'></div>
@@ -402,7 +403,7 @@
 				</div>
 				<div class='example'>
 			  		<p>...<b>O</b> must play in the <b>bottom left miniboard</b> on the metaboard.</p>
-				  	<div id='metaboard'>
+				  	<div class='metaboard'>
 					  <div class='board'>
 					  	<div class='mark'></div>
 						<div class='t l cell'></div>
@@ -529,7 +530,7 @@
 			<section>
 				<div class='example'>
 			  		<p>Get <b>three cells</b> in a row to win a miniboard.</p>
-				  	<div id='metaboard'>
+				  	<div class='metaboard'>
 					  <div class='board'>
 					  	<div class='mark X'>X</div>
 						<div class='t l cell'>X</div>
@@ -650,7 +651,7 @@
 				</div>
 				<div class='example'>
 			  		<p>Win <b>three miniboards</b> in a row to win the game.</p>
-				  	<div id='metaboard'>
+				  	<div class='metaboard'>
 					  <div class='board'>
 					  	<div class='mark'></div>
 						<div class='t l cell'></div>

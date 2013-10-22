@@ -213,6 +213,7 @@ class GamePage(webapp.RequestHandler):
             token = channel.create_channel(str(user.key().id()) + str(game.key()))
             template_values = {'token': token,
                                'me': user.key().id(),
+                               'my_piece': 'X' if game.userX == user else 'O', 
                                'game_id': str(game.key().id()),
                                'game_link': self.request.url,
                                'initial_message': GameUpdater(game).get_game_message()
@@ -223,23 +224,31 @@ class GamePage(webapp.RequestHandler):
         else:
             self.response.out.write('No such game')
             
-class MainPage(webapp.RequestHandler):
-    """ Render the main landing page where users can view instructions and create a new one."""
-    
+class InstructionPage(webapp.RequestHandler):
+    """Render a pop-out window with instructions"""
     def get(self):
-        session = get_current_session()
-        user_key = session.get('user_key')
-        if not user_key:
-            user = User()
-            user.put()
-            session['user_key'] = str(user.key())
-        
+        template_values = {}
+        path = os.path.join(os.path.dirname(__file__), 'instructions.html')
+        self.response.out.write(template.render(path, template_values))
+            
+class AboutPage(webapp.RequestHandler):
+    """Render a page with some background info about the game"""
+    def get(self):
+        template_values = {}
+        path = os.path.join(os.path.dirname(__file__), 'about.html')
+        self.response.out.write(template.render(path, template_values))
+            
+class MainPage(webapp.RequestHandler):
+    """Render the main landing page where users can view instructions and create a new one."""
+    def get(self):
         template_values = {}
         path = os.path.join(os.path.dirname(__file__), 'index.html')
         self.response.out.write(template.render(path, template_values))
 
 application = webapp.WSGIApplication([
     ('/', MainPage),
+    ('/about', AboutPage),
+    ('/instructions', InstructionPage),
     ('/new', NewGame),
     ('/game', GamePage),
     ('/opened', OpenedPage),

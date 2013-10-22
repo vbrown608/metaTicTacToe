@@ -14,8 +14,8 @@ header {
 	text-align: center;
 	margin: auto;
 	position: relative;
-	width: 200px;
-	height: 90px; }
+	width: 200px; 
+	height: 90px;}
 	
 header #meta {
 	font-family: Parisienne;
@@ -35,13 +35,17 @@ header #tictactoe {
 	left: 98px;
 }
 
+header a {
+	color: inherit;
+}
+
 nav {
 	float: left;
 	width: 185px;
-	height: 190px;
-	padding: 15px;
+	padding: 18px 14px;
 	background-color: #FFFFFF; 
-	box-shadow: -5px 5px 2px #DBDBDB; }
+	box-shadow: -5px 5px 2px #DBDBDB; 
+	text-align: center; }
 
 article {
 	float: left;
@@ -50,7 +54,7 @@ article {
 	
 article section {
 	float: left;
-	width: 580px;
+	width: 570px;
 	margin: 0 0 18px 0;
 	padding: 5px 15px 5px;
 	background-color: #FFFFFF; 
@@ -76,13 +80,7 @@ div.example.medium {
 }
 
 .button {
-  background-color: #C7F464; /* NEW COLOR: C7F464
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #C7F464), color-stop(100%, #cbe0f5));
-  background-image: -webkit-linear-gradient(top, #C7F464, #cbe0f5);
-  background-image: -moz-linear-gradient(top, #C7F464, #cbe0f5);
-  background-image: -ms-linear-gradient(top, #C7F464, #cbe0f5);
-  background-image: -o-linear-gradient(top, #C7F464, #cbe0f5);
-  background-image: linear-gradient(top, #C7F464, #cbe0f5); */
+  background-color: #C7F464; 
   border-top: 1px solid #94c948;
   border-left: 1px solid #94c948;
   border-bottom: 1px solid #94c948;
@@ -90,30 +88,23 @@ div.example.medium {
   border-radius: 12px;
   -webkit-box-shadow: inset 0 1px 0 0 white;
   box-shadow: inset 0 1px 0 0 white;
-  color: #1a3e66;
-  font: normal 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  color: #242424;
+  font: bold 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   padding: 14px 0 15px 0;
   text-align: center;
-  text-shadow: 0 1px 1px #fff;
+  text-shadow: 0 1px 1px #EAEAEA;
   width: 160px; 
-  margin: 12px auto 12px; 
+  margin: 12px auto 26px; 
   display: block; }
   
  .button:hover {
-   background-color: #b7ea6c;/*
-   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ccd9e8), color-stop(100%, #c1d4e8));
-   background-image: -webkit-linear-gradient(top, #ccd9e8, #c1d4e8);
-   background-image: -moz-linear-gradient(top, #ccd9e8, #c1d4e8);
-   background-image: -ms-linear-gradient(top, #ccd9e8, #c1d4e8);
-   background-image: -o-linear-gradient(top, #ccd9e8, #c1d4e8);
-   background-image: linear-gradient(top, #ccd9e8, #c1d4e8);*/
+   background-color: #b7ea6c;
    border-top: 1px solid #9bcb4d;
    border-left: 1px solid #9bcb4d;
    border-bottom: 1px solid #9bcb4d;
    border-right: 1px solid #9bcb4d;
    -webkit-box-shadow: inset 0 1px 0 0 #f2f2f2;
    box-shadow: inset 0 1px 0 0 #f2f2f2;
-   color: #163659;
    cursor: pointer; }
    
  /*.button:active { MIGHT COME BACK AND ADD THIS LATER
@@ -126,12 +117,9 @@ h1, h2, h3, h4, h5, h6 {
 	font: bold 18px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
 
-a { color: inherit ;
-	text-decoration: none;}
+a { text-decoration: none;}
 
-p {
-	line-height: 14pt;
-}
+p { line-height: 14pt; }
 
 .example p {
 	min-height: 36px;
@@ -162,13 +150,13 @@ div.info {
 }
 
 /* GAME BOARD ELEMENTS */
-#metaboard {
+.metaboard {
   width: 288px;
   height: 288px;
   margin: 20px auto 20px;
 }
 
-.example #metaboard {
+.example .metaboard {
   width: 192px;
   height: 192px; 
   margin: 14px auto 14px; }
@@ -187,21 +175,24 @@ div.board {
 }
 
 .board .mark {
-  color: ##3ACFC3; /* Fallback for older browsers */
-  color: rgba(3, 172, 252, 0.5);
   font-size: 72pt;
   font-weight: bold;
-  position: absolute; }
+  position: absolute; 
+  pointer-events:none; }
  
 .example .board .mark {
   font-size: 38pt;
  }
 
 .board .X {
+  color: #D9142B; /* Fallback for older browsers */
+  color: rgba(217, 20, 43, 0.5);
   top: -14px;
   left: 8px; }
 
 .board .O {
+  color: #14CFD9; /* Fallback for older browsers */
+  color: rgba(196, 83, 8, 0.5);
   top: -14px;
   left: 0px; }
   

@@ -1,0 +1,169 @@
+<html>
+  <head>
+  	  <Title>Meta Tic Tac Toe</Title>
+  	  <script src='js/jquery-1.8.2.min.js'></script>
+      <script src='/_ah/channel/jsapi'></script>
+      <link href='http://fonts.googleapis.com/css?family=Parisienne|Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  </head>
+  <body>
+  	
+    <script type='text/javascript'>
+     {% include "game.js" %}
+    </script>
+    
+    <div id='wrapper'>
+		<nav>
+			<header><a href='/'><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></a></header>
+			<form action="/new" method="post">
+				<input class='button' type="submit" value="New game"/>
+			</form>
+			<a href='/about'><div class='button'>About</div></a>
+			<p>Playing as <b>{{ my_piece }}</b>.</p>
+		</nav>
+		<article>
+			<section id='game-area'>
+			      <div class='info' id='other-player'>
+			        Waiting for another player to join.<br>
+			        Send them this link to play:<br>
+			      <div id='game-link'><a href='{{ game_link }}'>{{ game_link }}</a></div>
+			      </div>
+			      <div class='info' id='your-move'>
+			        Your move! Click a square to place your piece.
+			      </div>
+			      <div class='info' id='their-move'>
+			        Waiting for other player to move...
+			      </div>
+			      <div id='you-won'>
+			        You won this game!
+			      </div>
+			      <div id='you-lost'>
+			        You lost this game.
+			      </div>
+				  <div class='metaboard'>
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+					  
+					  <div class='board'>
+					  	<div class='mark'></div>
+						<div class='t l cell'></div>
+						<div class='t c cell'></div>
+						<div class='t r cell'></div>
+						<div class='m l cell'></div>
+						<div class='m c cell'></div>
+						<div class='m r cell'></div>
+						<div class='b l cell'></div>
+						<div class='b c cell'></div>
+						<div class='b r cell'></div>
+					  </div>
+				  </div>
+			      <div id='this-game' float='top'>
+			        Quick link to this game: <span id='this-game-link'><a href='{{ game_link }}'>{{ game_link }}</a></span>
+			      </div>
+    
+    		</section>
+		</article>
+	</div>
+  </body>
+</html>
