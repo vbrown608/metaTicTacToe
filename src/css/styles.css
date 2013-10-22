@@ -137,22 +137,20 @@ section#game-area {
 }
 
 div.info {
+  line-height: 12pt;
+  margin: 14pt;
   display: none;
 }
 
 #this-game {
-  float: left;
   font-size: 9pt;
-}
-
-#winner {
-  float: left;
+  margin: 0 auto 20pt;
 }
 
 /* GAME BOARD ELEMENTS */
 .metaboard {
-  width: 288px;
-  height: 288px;
+  width: 324px;
+  height: 324px;
   margin: 20px auto 20px;
 }
 
@@ -166,12 +164,12 @@ div.board {
   float: left;
   width: 80px;
   height: 80px;
-  margin: 8px; }
+  margin: 14px; }
 
 .example div.board {
-  width: 53px;
-  height: 53px;
-  margin: 5.3px;
+  width: 42px;
+  height: 42px;
+  margin: 11px;
 }
 
 .board .mark {
@@ -187,14 +185,14 @@ div.board {
 .board .X {
   color: #D9142B; /* Fallback for older browsers */
   color: rgba(217, 20, 43, 0.5);
-  top: -14px;
-  left: 8px; }
+  top: -11px;
+  left: 10px; }
 
 .board .O {
   color: #14CFD9; /* Fallback for older browsers */
   color: rgba(196, 83, 8, 0.5);
-  top: -14px;
-  left: 0px; }
+  top: -11px;
+  left: 2px; }
   
 .example .board .X {
   top: -6px;
@@ -210,7 +208,7 @@ div.cell {
   height: 20px;
   border: none;
   margin: 0px;
-  padding: 2px;
+  padding: 3px;
   font-size: 12pt;
 }
 
