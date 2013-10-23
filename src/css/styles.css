@@ -147,6 +147,12 @@ div.info {
   margin: 0 auto 20pt;
 }
 
+#game-link {
+	width: 250px;
+	font: inherit;
+	padding: 1px 3px;
+}
+
 /* GAME BOARD ELEMENTS */
 .metaboard {
   width: 324px;
@@ -181,18 +187,24 @@ div.board {
 .example .board .mark {
   font-size: 38pt;
  }
+ 
+ .game-piece {
+  font-weight: bold;
+ }
 
 .board .X {
-  color: #D9142B; /* Fallback for older browsers */
-  color: rgba(217, 20, 43, 0.5);
+  color: #093566; /* Fallback for older browsers */
+  color: rgba(9, 53, 102, 0.65);
   top: -11px;
-  left: 10px; }
+  left: 10px; 
+}
 
 .board .O {
-  color: #14CFD9; /* Fallback for older browsers */
-  color: rgba(196, 83, 8, 0.5);
+  color: #008AE6; /* Fallback for older browsers */
+  color: rgba(0, 138, 230, 0.65);
   top: -11px;
-  left: 2px; }
+  left: 2px; 
+}
   
 .example .board .X {
   top: -6px;

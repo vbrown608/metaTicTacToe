@@ -19,14 +19,14 @@
 				<input class='button' type="submit" value="New game"/>
 			</form>
 			<a href='/about'><div class='button'>About</div></a>
-			<p>Playing as <b>{{ my_piece }}</b>.</p>
+			<p>Playing as {{ my_piece }}.</p>
 		</nav>
 		<article>
 			<section id='game-area'>
 			      <div class='info' id='other-player'>
-			        Waiting for another player to join.<br>
-			        Send them this link to play:<br>
-			      <div id='game-link'><a href='{{ game_link }}'>{{ game_link }}</a></div>
+			        <p>Waiting for another player to join.</p>
+			        <p>Send them this link to play:<br>
+			        <input id='game-link' type='text' onClick="this.select();" value='{{ game_link }}' ></p>
 			      </div>
 			      <div class='info' id='your-move'>
 			        Your move! Click a square to place your piece.
