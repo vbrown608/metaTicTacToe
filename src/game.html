@@ -14,11 +14,11 @@
     
     <div id='wrapper'>
 		<nav>
-			<header><a href='/'><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></a></header>
-			<form action="/new" method="post">
+			<header><a href='/' target='_blank'><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></a></header>
+			<form action="/new" method="post" target='_blank'>
 				<input class='button' type="submit" value="New game"/>
 			</form>
-			<a href='/about'><div class='button'>About</div></a>
+			<a href='/about' target='_blank'><div class='button'>About</div></a>
 			<p>Playing as {{ my_piece }}.</p>
 		</nav>
 		<article>
@@ -34,10 +34,10 @@
 			      <div class='info' id='their-move'>
 			        Waiting for other player to move...
 			      </div>
-			      <div id='you-won'>
+			      <div class='info' id='you-won'>
 			        You won this game!
 			      </div>
-			      <div id='you-lost'>
+			      <div class='info' id='you-lost'>
 			        You lost this game.
 			      </div>
 				  <div class='metaboard' id='metaboard'>

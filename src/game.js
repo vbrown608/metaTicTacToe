@@ -85,6 +85,7 @@ $(document).ready(function() {
 		xhr.send();
 	};
 
+	// Add hover and click functionality for each game cell
 	moveInSquare = function() {
 		$(".board").each( function(i) {
 			$(this).find(".cell").each( function(j) {
@@ -98,7 +99,7 @@ $(document).ready(function() {
 						$(this).removeClass("hover");
 					}
 				);
-				// Send a message with the move on lick.
+				// Send a message with the move on click.
 				$(this).click( function() {
 					if (isLegalMove(i, j)) {
 						sendMessage('/move', 'i=' + i, 'j=' + j);
@@ -108,34 +109,6 @@ $(document).ready(function() {
 		});
 	}
 	
-	// Highlight playable cells on mouseover.
-	highlightSquare = function() {
-		$(".board").each( function(i) {
-			$(this).find(".cell").each( function(j) {
-				$(this).hover( function() {
-					if (isLegalMove(i, j)) {
-						$(this).addClass('hover');
-					}
-				});
-			});
-		});
-	}
-	
-	/*
-	highlightSquare = function() {
-		$(".cell").hover(
-			function() {
-				if (isMyMove()) {
-					$(this).addClass("hover");
-				}
-			}, 
-			function() {
-				$(this).removeClass("hover");
-			}
-		);
-	}
-	*/
-  
 	onOpened = function() {
 		sendMessage('/opened');
 	};
@@ -169,9 +142,7 @@ $(document).ready(function() {
   
 	initialize = function() {
 		openChannel();
-		//highlightSquare();
 		moveInSquare();
-		//var i;
 		onMessage({data: '{{ initial_message }}'});
 	}      
 

@@ -4,7 +4,6 @@ Web based Meta Tic-Tac-Toe game for Google App Engine
 @author: vbrown
 """
 
-import logging
 import os
 import re
 from django.utils import simplejson
@@ -205,6 +204,7 @@ class GamePage(webapp.RequestHandler):
         user = UserFromSession(get_current_session()).get_user()
         game = GameFromRequest(self.request).get_game()
         
+        # Assign player O
         if user != game.userX and not game.userO:
             game.userO = user
             game.put()
@@ -224,13 +224,6 @@ class GamePage(webapp.RequestHandler):
         else:
             self.response.out.write('No such game')
             
-class InstructionPage(webapp.RequestHandler):
-    """Render a pop-out window with instructions"""
-    def get(self):
-        template_values = {}
-        path = os.path.join(os.path.dirname(__file__), 'instructions.html')
-        self.response.out.write(template.render(path, template_values))
-            
 class AboutPage(webapp.RequestHandler):
     """Render a page with some background info about the game"""
     def get(self):
@@ -248,11 +241,10 @@ class MainPage(webapp.RequestHandler):
 application = webapp.WSGIApplication([
     ('/', MainPage),
     ('/about', AboutPage),
-    ('/instructions', InstructionPage),
     ('/new', NewGame),
     ('/game', GamePage),
     ('/opened', OpenedPage),
-    ('/move', MovePage)], debug=True)
+    ('/move', MovePage)], debug=False)
 
 def main():
     run_wsgi_app(application)
