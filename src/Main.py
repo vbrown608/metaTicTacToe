@@ -244,7 +244,7 @@ application = webapp.WSGIApplication([
     ('/new', NewGame),
     ('/game', GamePage),
     ('/opened', OpenedPage),
-    ('/move', MovePage)], debug=False)
+    ('/move', MovePage)], debug=True)
 
 def main():
     run_wsgi_app(application)

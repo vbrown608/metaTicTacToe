@@ -2,6 +2,8 @@
 body {
   background: #EAEAEA;
   font: normal 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  margin: 0; 
+  line-height: 1.231; 
 }
 
 #wrapper {
@@ -85,7 +87,7 @@ div.example.medium {
   border-left: 1px solid #94c948;
   border-bottom: 1px solid #94c948;
   border-right: 1px solid #94c948;
-  border-radius: 12px;
+  border-radius: 10px;
   -webkit-box-shadow: inset 0 1px 0 0 white;
   box-shadow: inset 0 1px 0 0 white;
   color: #242424;
@@ -241,23 +243,23 @@ div.cell.hover {
 }
 
 div.l {
-  border-right: 1pt solid black;
+  border-right: 1px solid black;
 }
 
 div.c {
 }
 
 div.r {
-  border-left: 1pt solid black;
+  border-left: 1px solid black;
 }
 
 div.t {
-  border-bottom: 1pt solid black;
+  border-bottom: 1px solid black;
 }
 
 div.m {
 }
 
 div.b {
-  border-top: 1pt solid black;
+  border-top: 1px solid black;
 }
