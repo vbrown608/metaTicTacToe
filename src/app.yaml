@@ -7,6 +7,9 @@ inbound_services:
 - channel_presence
 
 handlers:
+- url: /test.*
+  script: gaeunit.py
+
 - url: /css
   static_dir: css
   

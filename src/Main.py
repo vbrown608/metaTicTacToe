@@ -13,51 +13,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from gaesessions import get_current_session
-
-# Some naming conventions:
-# Cell: the index of a cell (0-8)
-# Board or miniboard: a string or list representing one of the nine smaller boards
-# Board_num: the index of a miniboard (0-8)
-# Metaboard: a list of nine miniboards
-
-class User(db.Model):
-    """Represent a user of the application. Equivalent to a browser session."""
-    google_user = db.BooleanProperty()
-    
-    def __eq__(self, other):
-        return self.key() == other.key()
-    
-    def __ne__(self, other):
-        return self.key() != other.key()
-            
-
-class Game(db.Model):
-    """Represent a single game of meta-tic-tac-toe"""
-    userX = db.ReferenceProperty(User, collection_name='userX')
-    userO = db.ReferenceProperty(User, collection_name='userO')
-    moveX = db.BooleanProperty()
-    metaboard = db.StringListProperty()
-    last_cell = db.IntegerProperty()
-    all_mini_wins = db.StringListProperty()
-    winner = db.StringProperty()
-    winning_board = db.StringProperty()
-
-class Wins():
-    """Store all possible miniboard wins as a list of strings, for pattern matching later on."""
-    x_win_patterns = ['XXX......',
-                    '...XXX...',
-                    '......XXX',
-                    'X..X..X..',
-                    '.X..X..X.',
-                    '..X..X..X',
-                    'X...X...X',
-                    '..X.X.X..']
-    
-    o_win_patterns = map(lambda s: s.replace('X','O'), x_win_patterns)
-    
-    x_wins = map(lambda s: re.compile(s), x_win_patterns)
-    o_wins = map(lambda s: re.compile(s), o_win_patterns)
-
+from Models import *
 
 class GameUpdater():
     """Manage all game logic, package game state, and send it to the client"""
