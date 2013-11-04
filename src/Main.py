@@ -5,7 +5,6 @@ Web based Meta Tic-Tac-Toe game for Google App Engine
 """
 
 import os
-import re
 from django.utils import simplejson
 from google.appengine.api import channel
 from google.appengine.ext import db
@@ -13,7 +12,8 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 from gaesessions import get_current_session
-from Models import *
+from Models import User, Game
+import Ai
 
 class GameUpdater():
     """Manage all game logic, package game state, and send it to the client"""

@@ -210,11 +210,11 @@ div.board {
 }
   
 .example .board .X {
-  top: -12px;
+  top: -31px;
   left: 4px; }
 
 .example .board .O {
-  top: -12px;
+  top: -31px;
   left: 0px; }
 
 div.cell {

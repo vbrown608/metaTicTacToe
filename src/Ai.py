@@ -10,7 +10,7 @@ import copy
 import logging
 from Models import User, Game
  
-def nextMove(game, depth):
+def nextMove(game, depth, alpha, beta):
     """
     Computes the next move for a player given the current board state and also
     computes if the player will win or not.
@@ -25,11 +25,10 @@ def nextMove(game, depth):
         (nextboard, nextcell): position where the player can play the next move so that the
                          player wins or draws or delays the loss
     """
-    if game.check_win(str(game.all_mini_wins)):
-        if game.moveX: return float('-inf'),(-1,-1)
-        else: return float('inf'),(-1,-1)
-    if depth <= 0:
-        return 0,(-1,-1)
+    utility = getUtility(game)
+    if utility > 100 or depth <= 0:
+        if game.moveX: return utility*-1,(-1,-1)
+        else: return utility,(-1,-1)
         
     res_list = [] # list for appending the resulting tuples
     board = game.metaboard[game.last_cell]
@@ -38,20 +37,25 @@ def nextMove(game, depth):
         return 0,-1
     legalMoves = getLegalMoves(game)
     for board, cell in legalMoves:
-        # Move on a copy of the game board
+        # Move on a copy of the game board.
         tempGame = copy.deepcopy(game)
         tempGame.move(board, cell, 'X' if tempGame.moveX else 'O')
-        ret,move=nextMove(tempGame, depth-1)
-        res_list.append(ret)
-    if game.moveX:
-        maxele=max(res_list)
-        return maxele,legalMoves[res_list.index(maxele)]
-    else :
-        minele=min(res_list)
-        return minele,legalMoves[res_list.index(minele)]
+        val,move=nextMove(tempGame, depth-1, -beta, -alpha)
+        val = val*-1
+        res_list.append(val)
+        
+        # Prune if alpha is greater than beta.
+        alpha = max(alpha, val)
+        if alpha >= beta: 
+            logging.info("PRUNING AT DEPTH " + str(depth))
+            break
+    maxele=max(res_list)
+    return maxele,legalMoves[res_list.index(maxele)]
     
-def ultility(game):
-    pass
+def getUtility(game):
+    if game.winner:
+        return float('inf'), (-1,-1)
+    return (game.all_mini_wins.count('X') - game.all_mini_wins.count('O'))
     
 def getLegalMoves(game):
     boards = range(9) if game.last_cell == -1 else [game.last_cell]

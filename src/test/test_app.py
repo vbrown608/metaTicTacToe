@@ -29,5 +29,5 @@ class Test(unittest.TestCase):
                     last_cell = 4,
                     all_mini_wins = [' ']*9,
                     metaboard = ['         ']*9)
-        result = nextMove(myGame, 3)
+        result = nextMove(myGame, 7, float('-inf'), float('inf'))
         self.assertEqual(result, (0, (4, 0)))
