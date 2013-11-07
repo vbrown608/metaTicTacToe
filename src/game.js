@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var state = {
-		game_id: '{{ game_id}}',
+		game_id: '{{ game_id }}',
 		me: '{{ me }}'
 	};
 
@@ -108,6 +108,10 @@ $(document).ready(function() {
 			});
 		});
 	}
+	
+	$('#play-ai').click( function() {
+		sendMessage('/ai');
+	});
 	
 	onOpened = function() {
 		sendMessage('/opened');

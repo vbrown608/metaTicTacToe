@@ -4,9 +4,9 @@ Created on Nov 1, 2013
 @author: vbrown
 '''
 
-import os
 import re
 from google.appengine.ext import db
+import logging
 
 # Some naming conventions:
 # Cell: the index of a cell (0-8)
@@ -52,7 +52,7 @@ class Game(db.Model):
     def is_legal_move(self, board_num, cell, user):
         """Return true iff the move is legal for the given user"""
         if board_num >= 0 and user == self.userX or user == self.userO:
-            if self.game.moveX == (user == self.userX): 
+            if self.moveX == (user == self.userX): 
                 if self.metaboard[board_num][cell] == ' ':
                     if (self.last_cell == -1 # Forced to move in already full board
                         or self.last_cell == board_num): # Normal move: board determined by last cell
@@ -73,15 +73,15 @@ class Game(db.Model):
             if self.all_mini_wins[board_num] == ' ' and self.check_win(board): 
                 self.all_mini_wins[board_num] = currentPlayer 
                 if self.check_win(self.all_mini_wins):
-                    self.game.winner = str(user.key().id())
+                    self.winner = str(user.key().id())
             
-            if ' ' in self.game.metaboard[cell]:
-                self.game.last_cell = cell
+            if ' ' in self.metaboard[cell]:
+                self.last_cell = cell
             else:
                 self.last_cell = -1 # A special case where the miniboard to be played in is full
 
             self.moveX = not self.moveX
-            return
+            return True
 
 class Wins():
     """Store all possible miniboard wins as a list of strings, for pattern matching later on."""

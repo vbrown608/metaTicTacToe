@@ -4,8 +4,6 @@ Created on Oct 30, 2013
 @author: vbrown
 '''
 
-import os
-import re
 import copy
 import logging
 from Models import User, Game
@@ -26,36 +24,36 @@ def nextMove(game, depth, alpha, beta):
                          player wins or draws or delays the loss
     """
     utility = getUtility(game)
-    if utility > 100 or depth <= 0:
-        if game.moveX: return utility*-1,(-1,-1)
-        else: return utility,(-1,-1)
+    if depth == 0:
+        return utility,(-1,-1)
         
-    res_list = [] # list for appending the resulting tuples
     board = game.metaboard[game.last_cell]
-    c = board.count(' ')
-    if  c is 0:
-        return 0,-1
     legalMoves = getLegalMoves(game)
+    bestValue = float('-inf')
+    bestMove = (-1,-1)
     for board, cell in legalMoves:
         # Move on a copy of the game board.
         tempGame = copy.deepcopy(game)
-        tempGame.move(board, cell, 'X' if tempGame.moveX else 'O')
-        val,move=nextMove(tempGame, depth-1, -beta, -alpha)
+        tempGame.move(board, cell, tempGame.userX if tempGame.moveX else tempGame.userO)
+        val, move = nextMove(tempGame, depth-1, -beta, -alpha)
         val = val*-1
-        res_list.append(val)
-        
+        if val > bestValue:
+            bestValue = val
+            bestMove = (board, cell)
         # Prune if alpha is greater than beta.
-        alpha = max(alpha, val)
+        alpha = max(alpha, val) 
         if alpha >= beta: 
-            logging.info("PRUNING AT DEPTH " + str(depth))
             break
-    maxele=max(res_list)
-    return maxele,legalMoves[res_list.index(maxele)]
+    #gameInfo = 'D=' + str(depth) + ' Util=' + str(bestValue) + ' MoveX=' + str(game.moveX) + ' M=' + str(bestMove)
+    #logging.info(gameInfo)
+    return bestValue, bestMove
     
 def getUtility(game):
+    player_coef = 1 if game.moveX else -1
     if game.winner:
-        return float('inf'), (-1,-1)
-    return (game.all_mini_wins.count('X') - game.all_mini_wins.count('O'))
+        return float('inf')*player_coef
+    else:
+        return (game.all_mini_wins.count('X') - game.all_mini_wins.count('O'))*player_coef
     
 def getLegalMoves(game):
     boards = range(9) if game.last_cell == -1 else [game.last_cell]

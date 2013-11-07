@@ -33,7 +33,7 @@ header #tictactoe {
 	font-family: 'Yanone Kaffeesatz', sans-serif;
 	font-size: 28px;
 	position: absolute;
-	top: 15px;
+	top: 18px;
 	left: 98px;
 }
 
@@ -198,14 +198,14 @@ div.board {
 .board .X {
   color: #093566; /* Fallback for older browsers */
   color: rgba(9, 53, 102, 0.65);
-  top: -22px;
+  top: -14px;
   left: 10px; 
 }
 
 .board .O {
   color: #008AE6; /* Fallback for older browsers */
   color: rgba(0, 138, 230, 0.65);
-  top: -22px;
+  top: -14px;
   left: 2px; 
 }
   
