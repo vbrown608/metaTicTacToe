@@ -25,7 +25,7 @@ header #meta {
 	font-weight: bold;
 	position: absolute;
 	top: 8px;
-	left: -10px;
+	left: -8px;
 	color: #1a3e66;
 }
 
@@ -34,7 +34,7 @@ header #tictactoe {
 	font-size: 28px;
 	position: absolute;
 	top: 18px;
-	left: 98px;
+	left: 101px;
 }
 
 header a {
@@ -153,6 +153,11 @@ div.info {
 	width: 350px;
 	font: inherit;
 	padding: 1px 3px;
+}
+
+#play-ai {
+	color: blue;
+	cursor: pointer;
 }
 
 /* GAME BOARD ELEMENTS */

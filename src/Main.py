@@ -16,7 +16,7 @@ from gaesessions import get_current_session
 from Models import User, Game
 import Ai
 
-AI_ID = 9
+AI_ID = 9 #1002 9 The computer player (AI) is represented by a special user in the datastore.
 
 class GameUpdater():
     """Manage all game logic, package game state, and send it to the client"""
@@ -52,9 +52,7 @@ class GameUpdater():
             self.send_update() # Send it to the client
         if self.game.userO == User.get_by_id(AI_ID): # Check if player O is AI - need to fix the check
             utility, (b, c) = Ai.nextMove(self.game, 4, float('-inf'), float('inf'))
-            logging.info('UTILITY IS ' + str(utility))
-            
-            logging.info("Board: " + str(b) + "  Cell: " + str(c))
+            logging.info("Board: " + str(b) + "  Cell: " + str(c) + '  Utility: ' + str(utility))
             if self.game.move(b, c, self.game.userO):
                 self.game.put()
                 self.send_update()

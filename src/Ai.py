@@ -6,6 +6,7 @@ Created on Oct 30, 2013
 
 import copy
 import logging
+import re
 from Models import User, Game
  
 def nextMove(game, depth, alpha, beta):
@@ -44,18 +45,41 @@ def nextMove(game, depth, alpha, beta):
         alpha = max(alpha, val) 
         if alpha >= beta: 
             break
-    #gameInfo = 'D=' + str(depth) + ' Util=' + str(bestValue) + ' MoveX=' + str(game.moveX) + ' M=' + str(bestMove)
-    #logging.info(gameInfo)
     return bestValue, bestMove
     
 def getUtility(game):
     player_coef = 1 if game.moveX else -1
     if game.winner:
-        return float('inf')*player_coef
-    else:
-        return (game.all_mini_wins.count('X') - game.all_mini_wins.count('O'))*player_coef
+        return 1000*player_coef
+    mini_win_chances = 0
+    for board in game.metaboard:
+        mini_win_chances += winChances(board, 'X')
+        mini_win_chances -= winChances(board, 'O')
+    mini_wins = game.all_mini_wins.count('X') - game.all_mini_wins.count('O')
+    meta_win_chances = winChances(game.all_mini_wins, 'X') - winChances(game.all_mini_wins, 'O')
+    return (mini_win_chances + mini_wins*10 + meta_win_chances*15)*player_coef
     
-def getLegalMoves(game):
+def winChances(board, player):
+    board = ''.join(board)
+    win_chance_patterns = [' XX......', 'X X......', 'XX ......', 
+                    '... XX...', '...X X...', '...XX ...', 
+                    '...... XX', '......X X', '......XX ', 
+                    ' ..X..X..', 'X.. ..X..', 'X..X.. ..', 
+                    '. ..X..X.', '.X.. ..X.', '.X..X.. .',
+                    '.. ..X..X', '..X.. ..X', '..X..X.. ',
+                    ' ...X...X', 'X... ...X', 'X...X... ',
+                    '.. .X.X..', '..X. .X..', '..X.X. ..']
+    if player == 'O': win_chance_patterns = map(lambda s: s.replace('X','O'), win_chance_patterns)
+    wins = map(lambda s: re.compile(s), win_chance_patterns)
+    result = 0
+    for win in wins:
+        if win.match(board): result += 1
+    return result
+    
+    
+def getLegalMoves(game): 
+    if game.winner:
+        return []
     boards = range(9) if game.last_cell == -1 else [game.last_cell]
     result = []
     for board in boards:
