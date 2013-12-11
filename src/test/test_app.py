@@ -24,10 +24,11 @@ class Test(unittest.TestCase):
     def test_ai(self):
         userX = User()
         userX.put()
+        foo = 6
         myGame = Game(userX,
                     moveX = True,
                     last_cell = 4,
                     all_mini_wins = [' ']*9,
                     metaboard = ['         ']*9)
-        result = nextMove(myGame, 7, float('-inf'), float('inf'))
+        result = negamax(myGame, 7, float('-inf'), float('inf'))
         self.assertEqual(result, (0, (4, 0)))

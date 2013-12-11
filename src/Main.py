@@ -63,8 +63,8 @@ class GameUpdater():
             self.game.put() # Save the game state
             self.send_update() # Send it to the client
         if self.game.userO == User.get_by_id(AI_ID): # Check if player O is AI - need to fix the check
-            utility, (b, c) = Ai.nextMove(self.game, 4, float('-inf'), float('inf'))
-            if self.game.move(b, c, self.game.userO):
+            board_num, cell = Ai.nextMove(self.game)
+            if self.game.move(board_num, cell, self.game.userO):
                 self.game.put()
                 self.send_update()
 

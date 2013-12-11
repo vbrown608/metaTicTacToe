@@ -12,7 +12,29 @@ import logging
 import re
 from Models import User, Game
  
-def nextMove(game, depth, alpha, beta):
+def nextMove(game):
+    """
+    Compute the next move for a player.
+    This is a wrapper function for the recursive function negamax.
+    
+    We calculate maximum search depth based on the number of empty cells remaining on the metaboard.
+    Why?
+    1. Search is slow at the beginning because the branching factor is high - so depth should be small (~4).
+    2. Deep search is worth more close to the end of the game - so go deep (up to 8)
+    
+    Arguments: 
+        game: Game object to evaluate
+        
+    Return:
+        (board_num, cell): the best move
+    """
+    cells_remaining = sum(map(lambda s: s.count(' '), game.metaboard))
+    max_depth = int(cells_remaining*(-.05) + 8)
+    
+    util, bestMove = negamax(game, max_depth, float('-inf'), float('inf'))
+    return bestMove
+ 
+def negamax(game, depth, alpha, beta):
     """
     Compute the next move for a player given the current board state and also
     compute the utility of that move.
@@ -40,7 +62,7 @@ def nextMove(game, depth, alpha, beta):
         # Move on a copy of the game board.
         tempGame = copy.deepcopy(game)
         tempGame.move(board, cell, tempGame.userX if tempGame.moveX else tempGame.userO)
-        val, move = nextMove(tempGame, depth-1, -beta, -alpha)
+        val, move = negamax(tempGame, depth-1, -beta, -alpha)
         val = val*-1
         if val > bestValue:
             bestValue = val
