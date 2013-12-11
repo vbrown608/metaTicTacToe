@@ -3,7 +3,6 @@
 body {
   background: #EAEAEA;
   font: normal 13px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-  line-height: 1.231; 
 }
 
 #wrapper {
@@ -24,7 +23,7 @@ header #meta {
 	font-size: 44px;
 	font-weight: bold;
 	position: absolute;
-	top: 8px;
+	top: 10px;
 	left: -8px;
 	color: #1a3e66;
 }

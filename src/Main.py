@@ -1,12 +1,24 @@
 """
-Web based Meta Tic-Tac-Toe game for Google App Engine
+Web based Meta Tic-Tac-Toe game for Google App Engine.
+This file controls the server-side interaction including
+    -creating and storing Users and Games
+    -managing game play
+    -serving pages
+    
+User identity is managed by browser cookies using gaesessions.
+Game updates are pushed to users via the Google Channel API.
 
+Datastore models (User and Game) are defined in Models.py
+AI strategy is defined in Ai.py
+
+Created 2013
 @author: vbrown
 """
 
 import os
 import logging
-from django.utils import simplejson
+import json
+#from django.utils import simplejson
 from google.appengine.api import channel
 from google.appengine.ext import db
 from google.appengine.ext import webapp
@@ -16,7 +28,7 @@ from gaesessions import get_current_session
 from Models import User, Game
 import Ai
 
-AI_ID = 9 #1002 9 The computer player (AI) is represented by a special user in the datastore.
+AI_ID = 6192449487634432 #1002 #The computer player (AI) is represented by a special user in the datastore.
 
 class GameUpdater():
     """Manage all game logic, package game state, and send it to the client"""
@@ -26,7 +38,7 @@ class GameUpdater():
         self.game = game
     
     def get_game_message(self):
-        """Return a JSON object with the game state"""
+        """Return a JSON object describing the game state"""
         gameUpdate = {
             'metaboard': self.game.metaboard,
             'userX': str(self.game.userX.key().id()),
@@ -36,7 +48,7 @@ class GameUpdater():
             'all_mini_wins': self.game.all_mini_wins,
             'winner': self.game.winner,
         }
-        return simplejson.dumps(gameUpdate)
+        return json.dumps(gameUpdate)
     
     def send_update(self):
         """Send the game state, via the channel, to userX and userO"""
@@ -52,7 +64,6 @@ class GameUpdater():
             self.send_update() # Send it to the client
         if self.game.userO == User.get_by_id(AI_ID): # Check if player O is AI - need to fix the check
             utility, (b, c) = Ai.nextMove(self.game, 4, float('-inf'), float('inf'))
-            logging.info("Board: " + str(b) + "  Cell: " + str(c) + '  Utility: ' + str(utility))
             if self.game.move(b, c, self.game.userO):
                 self.game.put()
                 self.send_update()
@@ -88,6 +99,7 @@ class UserFromSession():
         return self.user
     
 class PlayAi(webapp.RequestHandler):
+    """Add the Ai agent as player O and begin game play"""
     def post(self):
         game = GameFromRequest(self.request).get_game()
         ai = User.get_by_id(AI_ID)
@@ -97,7 +109,6 @@ class PlayAi(webapp.RequestHandler):
             game.userO = User.get_by_id(AI_ID)
             game.put()
             GameUpdater(game).send_update()
-        logging.info(User.get_by_id(AI_ID))
         
 class MovePage(webapp.RequestHandler):
     """Handle a game move from the client"""
@@ -107,7 +118,6 @@ class MovePage(webapp.RequestHandler):
         if game and user:
             board_num = int(self.request.get('i'))
             cell = int(self.request.get('j'))
-            logging.info('*******updating board at ' + str(board_num) + ' and ' + str(cell))
             GameUpdater(game).make_move(board_num, cell, user)
     
 class OpenedPage(webapp.RequestHandler):

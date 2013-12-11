@@ -3,7 +3,7 @@
 <html>
   <head>
   	  <Title>Meta Tic Tac Toe</Title>
-  	  <script src='js/jquery-1.8.2.min.js'></script>
+  	  <script src='http://code.jquery.com/jquery-git.js'></script>
       <script src='/_ah/channel/jsapi'></script>
       <link href='http://fonts.googleapis.com/css?family=Parisienne|Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
       <link rel="stylesheet" type="text/css" href="css/styles.css" />
@@ -16,12 +16,12 @@
     
     <div id='wrapper'>
 		<nav>
-			<header><a href='/' target='_blank'><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></a></header>
+			<header><a href='/'><div id='meta'>Meta</div><div id='tictactoe'>Tic Tac Toe</div></a></header>
 			<form action="/new" method="post" target='_blank'>
 				<input class='button' type="submit" value="New game"/>
 			</form>
-			<a href='/about' target='_blank'><div class='button'>About</div></a>
-			<p>Playing as {{ my_piece }}.</p>
+			<a href='/about'><div class='button'>About</div></a>
+			<p>Playing as <b>{{ my_piece }}</b>.</p>
 		</nav>
 		<article>
 			<section id='game-area'>

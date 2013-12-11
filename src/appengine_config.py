@@ -1,6 +1,8 @@
 '''
-Created on Sep 27, 2013
+Configuration file for metaTicTactoe app on Google App Engine.
+Configures gaesessions - library used to user sessions.
 
+Created on Sep 27, 2013
 @author: vbrown
 '''
 

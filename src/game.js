@@ -1,10 +1,17 @@
+/* Controls client-side game play in metaTicTacToe
+ * Client and server communicate via Google Channel API
+ * 
+ * Author: Vivian Brown
+ */
+
 $(document).ready(function() {
+	// Information from the server - needed to establish channel
 	var state = {
 		game_id: '{{ game_id }}',
 		me: '{{ me }}'
 	};
 
-	// Update the metaboard.
+	// Update the metaboard
 	updateGame = function() {
 		
 		$(".board").each( function(i) {
@@ -51,11 +58,13 @@ $(document).ready(function() {
 		}
 	};
   
+	// Return True IFF it's my turn
 	isMyMove = function() {
 		return (state.winner == "") && 
 			(state.moveX == (state.userX == state.me));
 	}
 
+	// Return my piece
 	myPiece = function() {
 		return state.userX == state.me ? 'X' : 'O';
 	}
@@ -109,6 +118,7 @@ $(document).ready(function() {
 		});
 	}
 	
+	// Add computer agent as player O
 	$('#play-ai').click( function() {
 		sendMessage('/ai');
 	});

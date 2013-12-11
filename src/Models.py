@@ -1,6 +1,8 @@
 '''
-Created on Nov 1, 2013
+Data models for metaTicTacToe.
+To be stored in Google App Engine datastore.
 
+Created on Nov 1, 2013
 @author: vbrown
 '''
 
@@ -15,8 +17,12 @@ import logging
 # Metaboard: a list of nine miniboards
 
 class User(db.Model):
-    """Represent a user of the application. Equivalent to a browser session."""
-    google_user = db.BooleanProperty()
+    """
+    Represent a user of the application. Equivalent to a browser session.
+    
+    Storing as an object rather than a string (something like session id) so I can
+    store more info about the user, such as wins or log-in info, later.
+    """
     
     def __eq__(self, other):
         return self.key() == other.key()
@@ -25,7 +31,10 @@ class User(db.Model):
         return self.key() != other.key()        
 
 class Game(db.Model):
-    """Represent a single game of meta-tic-tac-toe"""
+    """
+    Represent a single game of meta-tic-tac-toe.
+    Includes functionality to update based on a new move. 
+    """
     userX = db.ReferenceProperty(User, collection_name='userX')
     userO = db.ReferenceProperty(User, collection_name='userO')
     moveX = db.BooleanProperty()
@@ -36,7 +45,16 @@ class Game(db.Model):
     winning_board = db.StringProperty()
     
     def check_win(self, board):
-        """Check if a board contains three of the same piece in a row. Works on mini or metaboard"""
+        """
+        Check if a board contains three of the same piece in a row. Works on mini or metaboard
+        
+        Arugments:
+            board: string representation of a miniboard 
+                    OR list representation of all wins on a metaboard (normally self.all_mini_wins)
+                    
+        Return Value: 
+            True iff the board has three matching pieces in a row.
+        """
         board = "".join(board)
         if self.moveX:
             # X just moved, check for X wins
@@ -60,7 +78,14 @@ class Game(db.Model):
         return False
     
     def move(self, board_num, cell, user):
-        """Get a move. If it's legal update the game state"""
+        """
+        Get a move. If it's legal update the game state
+        
+        Arguments: 
+            board_num: the board to move in - 0-9, count across then down
+            cell: the cell to move in - 0-9, count across then down
+            user: the user making the move (User object)
+        """
         if self.is_legal_move(board_num, cell, user):
             board = list(self.metaboard[board_num])
         
