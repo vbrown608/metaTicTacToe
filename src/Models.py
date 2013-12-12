@@ -3,7 +3,7 @@ Data models for metaTicTacToe.
 To be stored in Google App Engine datastore.
 
 Created on Nov 1, 2013
-@author: vbrown
+@author: vbrown 
 '''
 
 import re
