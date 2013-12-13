@@ -28,7 +28,7 @@ from gaesessions import get_current_session
 from Models import User, Game
 import Ai
 
-AI_ID = 6192449487634432 #1002 #The computer player (AI) is represented by a special user in the datastore.
+AI_ID = 1002 #6192449487634432 #The computer player (AI) is represented by a special user in the datastore.
 
 class GameUpdater():
     """Manage all game logic, package game state, and send it to the client"""
@@ -40,14 +40,15 @@ class GameUpdater():
     def get_game_message(self):
         """Return a JSON object describing the game state"""
         gameUpdate = {
-            'metaboard': self.game.metaboard,
-            'userX': str(self.game.userX.key().id()),
-            'userO': '' if not self.game.userO else str(self.game.userO.key().id()),
-            'last_cell': self.game.last_cell,
-            'moveX': self.game.moveX,
-            'all_mini_wins': self.game.all_mini_wins,
-            'winner': self.game.winner,
+            "metaboard": self.game.metaboard,
+            "userX": str(self.game.userX.key().id()),
+            "userO": '' if not self.game.userO else str(self.game.userO.key().id()),
+            "last_cell": self.game.last_cell,
+            "moveX": self.game.moveX,
+            "all_mini_wins": self.game.all_mini_wins,
+            "winner": self.game.winner,
         }
+        logging.info(json.dumps(gameUpdate))
         return json.dumps(gameUpdate)
     
     def send_update(self):

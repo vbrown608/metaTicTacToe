@@ -128,7 +128,9 @@ $(document).ready(function() {
 	};
   
 	onMessage = function(m) {
-		newState = JSON.parse(m.data);
+		data = m.data.replace(/&quot;/g, '"');
+		console.log(data);
+		newState = JSON.parse(data);
 		state.metaboard = newState.metaboard || state.metaboard;
 		state.all_mini_wins = newState.all_mini_wins || state.all_mini_wins;
 		state.userX = newState.userX || state.userX;
