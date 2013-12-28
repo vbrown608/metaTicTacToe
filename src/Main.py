@@ -18,7 +18,6 @@ Created 2013
 import os
 import logging
 import json
-#from django.utils import simplejson
 from google.appengine.api import channel
 from google.appengine.ext import db
 from google.appengine.ext import webapp
@@ -28,7 +27,7 @@ from gaesessions import get_current_session
 from Models import User, Game
 import Ai
 
-AI_ID = 1002 #6192449487634432 #The computer player (AI) is represented by a special user in the datastore.
+AI_ID = 6192449487634432 #1002 #The computer player (AI) is represented by a special user in the datastore.
 
 class GameUpdater():
     """Manage all game logic, package game state, and send it to the client"""
@@ -48,7 +47,7 @@ class GameUpdater():
             "all_mini_wins": self.game.all_mini_wins,
             "winner": self.game.winner,
         }
-        logging.info(json.dumps(gameUpdate))
+        #logging.info(json.dumps(gameUpdate))
         return json.dumps(gameUpdate)
     
     def send_update(self):

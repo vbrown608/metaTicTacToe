@@ -29,9 +29,10 @@ def nextMove(game):
         (board_num, cell): the best move
     """
     cells_remaining = sum(map(lambda s: s.count(' '), game.metaboard))
-    max_depth = int(cells_remaining*(-.05) + 8)
+    max_depth = int(cells_remaining*(-.05) + 7)
     
     util, bestMove = negamax(game, max_depth, float('-inf'), float('inf'))
+    logging.info('Util = ' + str(util) + ' move = ' + str(bestMove))
     return bestMove
  
 def negamax(game, depth, alpha, beta):
@@ -64,7 +65,7 @@ def negamax(game, depth, alpha, beta):
         tempGame.move(board, cell, tempGame.userX if tempGame.moveX else tempGame.userO)
         val, move = negamax(tempGame, depth-1, -beta, -alpha)
         val = val*-1
-        if val > bestValue:
+        if val >= bestValue:
             bestValue = val
             bestMove = (board, cell)
         # Prune if alpha is greater than beta.

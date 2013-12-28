@@ -128,8 +128,7 @@ $(document).ready(function() {
 	};
   
 	onMessage = function(m) {
-		data = m.data.replace(/&quot;/g, '"');
-		console.log(data);
+		data = m.data.replace(/&quot;/g, '"'); // Need to find a better solution
 		newState = JSON.parse(data);
 		state.metaboard = newState.metaboard || state.metaboard;
 		state.all_mini_wins = newState.all_mini_wins || state.all_mini_wins;
