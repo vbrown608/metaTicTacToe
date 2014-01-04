@@ -20,7 +20,7 @@ def nextMove(game):
     We calculate maximum search depth based on the number of empty cells remaining on the metaboard.
     Why?
     1. Search is slow at the beginning because the branching factor is high - so depth should be small (~4).
-    2. Deep search is worth more close to the end of the game - so go deep (up to 8)
+    2. Deep search is worth more close to the end of the game - so go deep (up to 9)
     
     Arguments: 
         game: Game object to evaluate
@@ -29,13 +29,13 @@ def nextMove(game):
         (board_num, cell): the best move
     """
     cells_remaining = sum(map(lambda s: s.count(' '), game.metaboard))
-    max_depth = int(cells_remaining*(-.05) + 7)
+    max_depth = int(cells_remaining*(-.05) + 8)
     
-    util, bestMove = negamax(game, max_depth, float('-inf'), float('inf'))
-    logging.info('Util = ' + str(util) + ' move = ' + str(bestMove))
+    util, bestMove, path = negamax(game, max_depth, float('-inf'), float('inf'), [])
+    logging.info('Path: ' + str(path))
     return bestMove
  
-def negamax(game, depth, alpha, beta):
+def negamax(game, depth, alpha, beta, path):
     """
     Compute the next move for a player given the current board state and also
     compute the utility of that move.
@@ -51,28 +51,35 @@ def negamax(game, depth, alpha, beta):
         (nextboard, nextcell): position where the player can play the next move so that the
                          player wins or draws or delays the loss
     """
-    utility = getUtility(game)
     if depth == 0:
-        return utility,(-1,-1)
+        utility = getUtility(game)
+        return utility,(-1,-1),[]
         
-    board = game.metaboard[game.last_cell]
     legalMoves = getLegalMoves(game)
+    if len(legalMoves) == 0:
+        utility = getUtility(game)
+        return utility,(-1,-1),[]
+    
     bestValue = float('-inf')
     bestMove = (-1,-1)
+    bestPath = []
     for board, cell in legalMoves:
         # Move on a copy of the game board.
         tempGame = copy.deepcopy(game)
         tempGame.move(board, cell, tempGame.userX if tempGame.moveX else tempGame.userO)
-        val, move = negamax(tempGame, depth-1, -beta, -alpha)
+        val, move, path = negamax(tempGame, depth-1, -beta, -alpha, path)
         val = val*-1
-        if val >= bestValue:
+        if val > bestValue:
+            bestPath = path
             bestValue = val
             bestMove = (board, cell)
+            
         # Prune if alpha is greater than beta.
         alpha = max(alpha, val) 
         if alpha >= beta: 
             break
-    return bestValue, bestMove
+    path = [(bestMove, bestValue)] + bestPath
+    return bestValue, bestMove, path
     
 def getUtility(game):
     """
@@ -82,20 +89,23 @@ def getUtility(game):
         game: Game object to evaluate
         
     Return Value:
-        utility: Large numbers are good for player X. Small numbers are good for O.
+        utility: Large numbers are good for the player who just played (!game.moveX)
     """
     player_coef = 1 if game.moveX else -1
     if game.winner:
-        return 1000*player_coef
-    mini_win_chances = 0
+        #logging.info('WINNING - game.moveX = ' + str(game.moveX))
+        #logging.info('Winner: ' + str(game.winner))
+        return -1000
     
     # Count the chances for a win on a miniboard (two pieces in a row)
-    # TODO: Don't count chances on a miniboards are already won
-    for board in game.metaboard:
-        mini_win_chances += winChances(board, 'X')
-        mini_win_chances -= winChances(board, 'O')
+    mini_win_chances = 0
+    for i in range(len(game.metaboard)):
+        if game.all_mini_wins[i] == ' ':
+            board = game.metaboard[i]
+            mini_win_chances += winChances(board, 'X')
+            mini_win_chances -= winChances(board, 'O')
         
-    # Count 
+    # Count the number of miniboards won
     mini_wins = game.all_mini_wins.count('X') - game.all_mini_wins.count('O')
     
     # Count the chances for a win on the metaboard (two miniboards won in a row)
@@ -114,8 +124,7 @@ def winChances(board, player):
     Return Value:
         Number of instances where player has two pieces in a row with third position empty.
     
-    Note: this is slow. I'd like to speed things up by only evaluating the miniboard with the most 
-    recent move. The other counts would be passed as an additional arg in the recursive function.
+    Note: this is slow. 
     """
     board = ''.join(board)
     win_chance_patterns = [' XX......', 'X X......', 'XX ......', 

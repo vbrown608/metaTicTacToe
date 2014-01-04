@@ -27,7 +27,8 @@ from gaesessions import get_current_session
 from Models import User, Game
 import Ai
 
-AI_ID = 6192449487634432 #1002 #The computer player (AI) is represented by a special user in the datastore.
+AI_ID = 1002 # The computer player (AI) is represented by a special user in the datastore.
+# Using 6192449487634432 for dev appserver.
 
 class GameUpdater():
     """Manage all game logic, package game state, and send it to the client"""
@@ -47,7 +48,6 @@ class GameUpdater():
             "all_mini_wins": self.game.all_mini_wins,
             "winner": self.game.winner,
         }
-        #logging.info(json.dumps(gameUpdate))
         return json.dumps(gameUpdate)
     
     def send_update(self):
