@@ -29,7 +29,7 @@ def nextMove(game):
         (board_num, cell): the best move
     """
     cells_remaining = sum(map(lambda s: s.count(' '), game.metaboard))
-    max_depth = int(cells_remaining*(-.05) + 8)
+    max_depth = int(cells_remaining*(-.05) + 7)
     
     util, bestMove, path = negamax(game, max_depth, float('-inf'), float('inf'), [])
     logging.info('Path: ' + str(path))
