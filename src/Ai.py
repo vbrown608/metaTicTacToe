@@ -4,7 +4,7 @@ Computer plays by negamax with alpha-beta pruning.
 Pseudocode from http://chessprogramming.wikispaces.com/Negamax
 
 Created on Oct 30, 2013
-@author: vbrown
+@author: Vivian Brown
 """
 
 import copy
@@ -32,7 +32,6 @@ def nextMove(game):
     max_depth = int(cells_remaining*(-.05) + 7)
     
     util, bestMove, path = negamax(game, max_depth, float('-inf'), float('inf'), [])
-    logging.info('Path: ' + str(path))
     return bestMove
  
 def negamax(game, depth, alpha, beta, path):
@@ -47,7 +46,7 @@ def negamax(game, depth, alpha, beta, path):
         beta: best utility for X along path to root - initialize to positive infinity
  
     Return Value:
-        utility: The goodness of the move for the Agent (always player O). 
+        utility: The goodness of the move for the current player. 
         (nextboard, nextcell): position where the player can play the next move so that the
                          player wins or draws or delays the loss
     """
@@ -93,8 +92,6 @@ def getUtility(game):
     """
     player_coef = 1 if game.moveX else -1
     if game.winner:
-        #logging.info('WINNING - game.moveX = ' + str(game.moveX))
-        #logging.info('Winner: ' + str(game.winner))
         return -1000
     
     # Count the chances for a win on a miniboard (two pieces in a row)
